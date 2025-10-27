@@ -3,13 +3,14 @@ import json
 import pandas as pd
 from tqdm import tqdm  # shows progress bar, optional but nice
 
-# --- 1️⃣  Replace this with your actual raw file URL  ---
-url = "https://raw.githubusercontent.com/SkillCorner/opendata/refs/heads/master/data/matches/2015213/2015213_tracking_extrapolated.jsonl"
+matchID = 2015213
+url = "https://media.githubusercontent.com/media/SkillCorner/opendata/master/data/matches/2015213/2015213_tracking_extrapolated.jsonl"
+
 def load_tracking_data(url, max_frames=None):
-    """
-    Stream and flatten soccer tracking data from JSONL format.
-    Handles keys: frame, timestamp, period, ball_data, player_data
-    """
+
+    # Stream and flatten soccer tracking data from JSONL format.
+    # Handles keys: frame, timestamp, period, ball_data, player_data
+
     frames = []
 
     with requests.get(url, stream=True) as r:
@@ -59,3 +60,8 @@ def load_tracking_data(url, max_frames=None):
 
     df = pd.DataFrame(frames)
     return df
+
+# Example usage
+df = load_tracking_data(url, max_frames=500)
+print("✅ Loaded DataFrame shape:", df.shape)
+print(df.tail())
