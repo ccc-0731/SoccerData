@@ -15,8 +15,4 @@ Result: to be implemented
 - Data preprocessing: Get rid of all the frames where the ball isn't visible
 - and more...!
 
-~~The Real STAR
-Situation: We don't know a lot of coding
-Task: Learn coding by diving in
-Action: We learn it
-Result: This~~
+~~The Real STAR: We don't know a lot of coding -> Learn coding by diving in -> We learn it -> This~~
