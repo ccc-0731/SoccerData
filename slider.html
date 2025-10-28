@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <h1>Slider Example</h1>
+
+  <input type="range" min="0" max="100" value="50" id="slider">
+  <p>Value: <span id="val">50</span></p>
+
+  <script>
+    const slider = document.getElementById("slider");
+    const valSpan = document.getElementById("val");
+
+    // This runs *in the browser* whenever the slider moves
+    slider.oninput = function() {
+      valSpan.textContent = this.value;
+    }
+  </script>
+</body>
+</html>

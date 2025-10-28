@@ -1,0 +1,10 @@
+body {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  margin-top: 50px;
+}
+
+input[type=range] {
+  width: 300px;
+}
