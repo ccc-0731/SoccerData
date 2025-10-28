@@ -17,3 +17,5 @@ Result: to be implemented
 
 *may not be implemented yet
 ~~The Real STAR: We don't know a lot of coding -> Learn coding by diving in -> We learn it -> This~~
+
+<img width="802" height="581" alt="Screenshot 2025-10-28 at 15 36 56" src="https://github.com/user-attachments/assets/6eff35e6-955a-4800-9813-0ef7361528f5" />
