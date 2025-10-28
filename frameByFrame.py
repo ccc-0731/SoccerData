@@ -63,3 +63,44 @@ tracking_list = build_tracking_list(url)
 import pprint
 pprint.pp(tracking_list[0])
 print(f"\n✅ Total frames loaded: {len(tracking_list)}")
+
+def perFrame(frame, data):
+    return tracking_list[frame]
+
+def make_graph(frame_index, tracking_list):
+    import matplotlib.pyplot as plt
+
+    # Example data
+    frame = tracking_list[frame_index]
+
+    x = []
+    x.append(frame['ball']['x'])
+    for i in range(len(frame['players'])):
+        x.append(frame['players'][i]['x'])
+    y = []
+    y.append(frame['ball']['y'])
+    for i in range(len(frame['players'])):
+        y.append(frame['players'][i]['y'])
+
+    # Plot all points except the first
+    plt.scatter(x[1:], y[1:], color='blue', label='Players')
+
+    # Plot the first point in a different color
+    plt.scatter(x[0], y[0], color='red', label='Ball', s=100)
+
+    # Set custom x (domain) and y (range) limits
+    plt.xlim(-52.5, 52.5)  # domain
+    plt.ylim(-34, 34)      # range
+
+    # Add labels, title, legend
+    plt.xlabel('X values')
+    plt.ylabel('Y values')
+    plt.title('Field with Ball and Player Locations')
+    plt.legend()
+    plt.grid(True)
+
+    # Show the plot
+    plt.show()
+
+
+make_graph(0, tracking_list)
