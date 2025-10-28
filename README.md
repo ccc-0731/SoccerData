@@ -1,5 +1,5 @@
 # SoccerData
-SkillCorner has very cool game tracking data! We wil try our best to visualize it ;)
+SkillCorner has very cool game tracking data! We will try our best to visualize it ;)
 
 *HeadsUp: This is more of a practice project for us to dive in and learn some data viz/webapp development along the way!!!*
 
@@ -10,9 +10,10 @@ Action: Data analysis; python/flask backend + html/css/js frontend
 Result: to be implemented
 
 ## Features
-- Color-coding both teams
-- Indicating where the 1st quarter ends and 2nd quarter begins
-- Data preprocessing: Get rid of all the frames where the ball isn't visible
+- Colors separating the players and the ball
+- Indicating where the 1st quarter ends and 2nd quarter begins*
+- Data preprocessing: Get rid of all the frames where the ball isn't visible*
 - and more...!
 
+*may not be implemented yet
 ~~The Real STAR: We don't know a lot of coding -> Learn coding by diving in -> We learn it -> This~~
