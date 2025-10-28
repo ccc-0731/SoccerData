@@ -8,8 +8,9 @@ import matplotlib.pyplot as plt
 app = Flask(__name__)
 
 # Load your dataframe once (so it’s ready)
+matchIDs = [1886347, 1899585, 1925299, 1953632, 1996435, 2006229, 2011166, 2013725, 2015213, 2017461]
 matchID = 2015213
-url = "https://media.githubusercontent.com/media/SkillCorner/opendata/master/data/matches/2015213/2015213_tracking_extrapolated.jsonl"
+url = f"https://media.githubusercontent.com/media/SkillCorner/opendata/master/data/matches/{matchID}/{matchID}_tracking_extrapolated.jsonl"
 
 tracking_list = build_tracking_list(url)
 
