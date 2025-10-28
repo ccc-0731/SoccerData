@@ -43,3 +43,4 @@ slider.addEventListener("input", async () => {
     }
   });
 });
+
