@@ -1,6 +1,9 @@
 import requests
 import json
 from tqdm import tqdm  # optional but nice for progress display
+import matplotlib.patches as patches
+import matplotlib.pyplot as plt
+
 
 url = "https://media.githubusercontent.com/media/SkillCorner/opendata/master/data/matches/2015213/2015213_tracking_extrapolated.jsonl"
 
@@ -68,9 +71,53 @@ def perFrame(frame, data):
     return tracking_list[frame]
 
 def make_graph(frame_index, tracking_list):
-    import matplotlib.pyplot as plt
 
-    # Example data
+    fig, ax = plt.subplots(figsize=(10, 6.5))
+    
+    x_min, x_max = -52.5, 52.5
+    y_min, y_max = -34, 34
+
+    # Draw outer border (field boundary)
+    field_outline = patches.Rectangle(
+        (x_min, y_min), x_max - x_min, y_max - y_min,
+        linewidth=2, edgecolor='black', facecolor='green', alpha=0.15
+    )
+    ax.add_patch(field_outline)
+
+    # Center line
+    ax.plot([0, 0], [y_min, y_max], color='white', linewidth=2)
+
+    # Center circle
+    center_circle = patches.Circle((0, 0), 9.15, fill=False, color='white', linewidth=2)
+    ax.add_patch(center_circle)
+
+    # Center spot
+    ax.plot(0, 0, 'wo', markersize=4)
+
+    # Penalty boxes
+    # Left penalty box
+    ax.add_patch(patches.Rectangle((-52.5, -20.15), 16.5, 40.3, fill=False, color='white', linewidth=2))
+    # Right penalty box
+    ax.add_patch(patches.Rectangle((52.5 - 16.5, -20.15), 16.5, 40.3, fill=False, color='white', linewidth=2))
+
+    # Goal boxes
+    ax.add_patch(patches.Rectangle((-52.5, -7.32), 5.5, 14.64, fill=False, color='white', linewidth=2))
+    ax.add_patch(patches.Rectangle((52.5 - 5.5, -7.32), 5.5, 14.64, fill=False, color='white', linewidth=2))
+
+    # Goals (optional)
+    ax.add_patch(patches.Rectangle((-52.5 - 2, -3.66), 2, 7.32, fill=False, color='white', linewidth=2))
+    ax.add_patch(patches.Rectangle((52.5, -3.66), 2, 7.32, fill=False, color='white', linewidth=2))
+
+    # Penalty spots
+    ax.plot(-52.5 + 11, 0, 'wo', markersize=4)
+    ax.plot(52.5 - 11, 0, 'wo', markersize=4)
+
+    # Arcs at top of penalty boxes
+    left_arc = patches.Arc((-52.5 + 11, 0), 18.3, 18.3, angle=0, theta1=308, theta2=52, color='white', linewidth=2)
+    right_arc = patches.Arc((52.5 - 11, 0), 18.3, 18.3, angle=0, theta1=128, theta2=232, color='white', linewidth=2)
+    ax.add_patch(left_arc)
+    ax.add_patch(right_arc)
+
     frame = tracking_list[frame_index]
 
     x = []
@@ -92,7 +139,26 @@ def make_graph(frame_index, tracking_list):
     plt.xlim(-52.5, 52.5)  # domain
     plt.ylim(-34, 34)      # range
 
+    # Center the axes at (0, 0)
+    ax = plt.gca()  # Get current axes
+    ax.spines['left'].set_position('zero')
+    ax.spines['bottom'].set_position('zero')
+
+    # Hide the top and right spines
+    for spine in ['top', 'right', 'bottom', 'left']:
+        ax.spines[spine].set_visible(True)
+        ax.spines[spine].set_color('black')
+        ax.spines[spine].set_linewidth(1.5)
+
+    # Move ticks to bottom and left
+    ax.xaxis.set_ticks_position('bottom')
+    ax.yaxis.set_ticks_position('left')
     # Add labels, title, legend
+    # Add labels and manually position them at the edges
+    ax.set_xlabel('X values', labelpad=10)
+    ax.set_ylabel('Y values', labelpad=10)
+    ax.xaxis.set_label_coords(1, -0.05)   # right edge, vertically centered
+    ax.yaxis.set_label_coords(-0.05, 1)   # top edge, horizontally centered
     plt.xlabel('X values')
     plt.ylabel('Y values')
     plt.title('Field with Ball and Player Locations')
@@ -100,7 +166,7 @@ def make_graph(frame_index, tracking_list):
     plt.grid(True)
 
     # Show the plot
-    plt.show()
+    return fig, ax
 
 
 make_graph(0, tracking_list)
