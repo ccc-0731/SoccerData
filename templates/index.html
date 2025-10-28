@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Soccer Tracking Visualization</title>
+
+  <!-- Load the JS file from the "static" folder -->
+  <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+
+<body>
+  <h1>Soccer Tracking Data Viewer</h1>
+
+  <!-- The slider controls which frame is shown -->
+  <label for="slider">Frame:</label>
+  <input type="range" id="slider" min="0" max="1000" value="0">
+  <span id="frame-number">0</span>
+
+  <br><br>
+
+  <!-- Canvas for drawing players/ball positions -->
+  <canvas id="field" width="600" height="400" style="border:1px solid black;"></canvas>
+</body>
+</html>
