@@ -1,7 +1,7 @@
 from flask import Flask, render_template, jsonify, send_file
 import pandas as pd
 from loadData import build_tracking_list
-from makeGraph import make_graph
+from imageMaker import make_graph
 import io
 import matplotlib.pyplot as plt
 
@@ -26,17 +26,8 @@ def index():
 # ---------------------------------------------------------
 @app.route("/frame/<int:frame_id>")
 def get_frame(frame_id):
-    # Generate the Matplotlib figure for this frame
-    fig = make_graph(frame_id, tracking_list)
-
-    # Save the figure into an in-memory buffer
-    buf = io.BytesIO()
-    fig.savefig(buf, format='png')
-    buf.seek(0)
-    plt.close(fig)  # close to avoid memory leaks
-
-    # Send it directly as an image
-    return send_file(buf, mimetype='image/png')
+    img_bytes = make_graph(frame_id, tracking_list)
+    return send_file(img_bytes, mimetype='image/png')
 
 # ---------------------------------------------------------
 # 4️⃣ Run the app

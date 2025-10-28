@@ -1,46 +1,41 @@
-// ---------------------------------------------------------
-// 1️⃣ Get references to HTML elements
-// ---------------------------------------------------------
-const slider = document.getElementById("slider");
-const frameNum = document.getElementById("frame-number");
-const canvas = document.getElementById("field");
-const ctx = canvas.getContext("2d");
+// Wait until the page is fully loaded
+window.addEventListener("DOMContentLoaded", () => {
+  const canvas = document.getElementById("field");
+  const ctx = canvas.getContext("2d");
+  const slider = document.getElementById("slider");
+  const frameNumber = document.getElementById("frame-number");
 
-// ---------------------------------------------------------
-// 2️⃣ Add an event listener: runs every time slider moves
-// ---------------------------------------------------------
-slider.addEventListener("input", async () => {
-  // Get current frame number from slider
-  const frame = slider.value;
+  // Function to load and draw a frame image from Flask
+  async function loadFrame(frameId) {
+    try {
+      const response = await fetch(`/frame/${frameId}`);
+      if (!response.ok) {
+        console.error("Frame fetch failed:", response.status);
+        return;
+      }
 
-  // Show frame number next to the slider
-  frameNum.textContent = frame;
+      const blob = await response.blob(); // Get image bytes
+      const img = new Image();
 
-  // -------------------------------------------------------
-  // 3️⃣ Ask Flask backend for that frame’s data
-  // -------------------------------------------------------
-  const response = await fetch(`/frame/${frame}`);
-  const data = await response.json(); // Parse JSON into JS objects
+      img.onload = () => {
+        // Clear the canvas before drawing
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      };
 
-  // -------------------------------------------------------
-  // 4️⃣ Clear the canvas before drawing the next frame
-  // -------------------------------------------------------
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  // -------------------------------------------------------
-  // 5️⃣ Draw simple dots for each detected player
-  // -------------------------------------------------------
-  data.forEach(p => {
-    if (p.is_detected) {
-      ctx.beginPath();
-
-      // Scale down coordinates to fit in the canvas
-      ctx.arc(p.x / 2, p.y / 2, 3, 0, Math.PI * 2);
-
-      // Use color by team (adjust based on your data)
-      ctx.fillStyle = p.team === "home" ? "blue" : "red";
-      ctx.fill();
+      img.src = URL.createObjectURL(blob); // Convert blob to usable image
+    } catch (err) {
+      console.error("Error loading frame:", err);
     }
-  });
-});
+  }
 
+  // When the slider moves, load that frame
+  slider.addEventListener("input", () => {
+    const frameId = slider.value;
+    frameNumber.textContent = frameId;
+    loadFrame(frameId);
+  });
+
+  // Load the first frame on startup
+  loadFrame(0);
+});
