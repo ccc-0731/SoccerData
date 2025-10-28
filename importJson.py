@@ -114,7 +114,8 @@ def get_player_data(player, url):
 # Example usage
 df = load_tracking_data(url)
 print("✅ Loaded DataFrame shape:", df.shape)
-print(df.head(50))
+
+print(df["frame"].head(50))
 ballData = get_frames(url)
 for i in range(50):
     print(ballData.at[i, "frame"])
