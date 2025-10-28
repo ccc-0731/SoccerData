@@ -76,10 +76,10 @@ def get_frames(url):
     df = pd.DataFrame(frames)
     return df
 
-def get_player_data(player, url):
+def get_object_data(object, url):
 
     frames = []
-    p = player
+    p = object
 
     with requests.get(url, stream=True) as r:
         r.raise_for_status()
