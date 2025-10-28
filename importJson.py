@@ -62,4 +62,4 @@ def load_tracking_data(url):
 # Example usage
 df = load_tracking_data(url)
 print("✅ Loaded DataFrame shape:", df.shape)
-print(df.tail())
+print(df.head(50))
