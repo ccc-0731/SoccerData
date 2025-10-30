@@ -11,11 +11,15 @@ Result: to be implemented
 
 ## Features
 - Colors separating the players and the ball
-- Indicating where the 1st quarter ends and 2nd quarter begins*
-- Data preprocessing: Get rid of all the frames where the ball isn't visible*
-- and more...!
+- Control of frames using slider
 
-*may not be implemented yet
 ~~The Real STAR: We don't know a lot of coding -> Learn coding by diving in -> We learn it -> This~~
 
+## Planned Updates
+- Differentiation of teams as well as identification of individual players.
+- More intuitive frame control mechanisms, such as typing in certain frames or using timestamps rather than frames.
+- Video playback of chosen excerpts.
+- Saving of images, gifs, or videos.
+- Usage of the Kloppy resource provided by SkillCorner to make use of a visualizer much better suited for the data.
+- Usage of data other than location such as ball possession, goals made, and total score to give a fully-fledged overview of the game.
 <img width="802" height="581" alt="Screenshot 2025-10-28 at 15 36 56" src="https://github.com/user-attachments/assets/6eff35e6-955a-4800-9813-0ef7361528f5" />
